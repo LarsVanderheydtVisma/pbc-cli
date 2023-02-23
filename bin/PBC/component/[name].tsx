@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import './[name].css';
 
 export const name = (): ReactElement => {
     return (

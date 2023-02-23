@@ -50,7 +50,7 @@ const createComponent = (dir, name) => {
         dir,
         name,
         type: 'component',
-        pages: ['[name].tsx', '[name].css', '[name].stories.tsx', '[name].test.tsx'],
+        pages: ['[name].tsx', '[name].stories.tsx', '[name].test.tsx'],
     });
 }
 
