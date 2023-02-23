@@ -32,9 +32,9 @@ const copyFiles = ({ dir, pages, name, type }) => {
             const fileExtension = fileName.split('[name].')[1];
             const result = data
                 .replace(/\[name with space\]|name with space/g, getFinalName(name, ' '))
-                .replace(/\[name\]|name/g, camelCaseName)
+                .replace(/\[nameLowerCase\]|nameLowerCase/g, name.replace(/ /g, '-').split('-').map(word => word.toLowerCase()).join(''))
                 .replace(/_name/g, `_${camelCaseName}`)
-                .replace(/\[nameLowerCase\]|nameLowerCase/g, name.replace(/ /g, '-').split('-').map(word => word.toLowerCase()).join(''));
+                .replace(/\[name\]|name/g, camelCaseName);
 
             fs.writeFile(`${dir}/${camelCaseName}.${fileExtension}`, result, 'utf8', (err) => {
                 if (err) return console.error(err);
