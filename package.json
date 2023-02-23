@@ -8,5 +8,10 @@
   "dependencies": {
     "commander": "^10.0.0",
     "inquirer": "^9.1.4"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
