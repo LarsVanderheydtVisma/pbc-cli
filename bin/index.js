@@ -34,7 +34,7 @@ const createComponent = (dir, name) => {
                 .replace(/\[name with space\]|name with space/g, getFinalName(name, ' '))
                 .replace(/\[name\]|name/g, camelCaseName)
                 .replace(/_name/g, `_${camelCaseName}`)
-                .replace(/\[nameLowerCase]|nameLowerCase/g, name.replace(/ /g, '-').split('-').map(word => word.toLowerCase()).join(''));
+                .replace(/\[nameLowerCase\]|nameLowerCase/g, name.replace(/ /g, '-').split('-').map(word => word.toLowerCase()).join(''));
 
             fs.writeFile(`${dir}/${camelCaseName}.${fileExtension}`, result, 'utf8', (err) => {
                 if (err) return console.log(err);
