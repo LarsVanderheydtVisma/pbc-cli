@@ -1,0 +1,12 @@
+{
+  "name": "pbc-cli",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "pbc": "./bin/index.js"
+  },
+  "dependencies": {
+    "commander": "^10.0.0",
+    "inquirer": "^9.1.4"
+  }
+}
