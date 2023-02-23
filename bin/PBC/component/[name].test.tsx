@@ -28,8 +28,8 @@ const mount = (name: ReactElement): { div: HTMLElement } => {
     return {
         div,
     };
-}
+};
 
 const removeContainer = () => {
     document.querySelector('[data-testid="container"]')?.remove();
-}
+};
