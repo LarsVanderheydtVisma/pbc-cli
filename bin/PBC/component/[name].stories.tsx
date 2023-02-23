@@ -7,4 +7,4 @@ export default {
 
 export const _name = (): ReactElement => {
     return <name />;
-}
+};
