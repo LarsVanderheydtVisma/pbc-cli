@@ -22,7 +22,7 @@ const removeContainer = () => {
 describe('name', () => {
     beforeEach(removeContainer);
 
-    it('should render [name]', () => {
+    it('should render [name] story', () => {
         mount(
             <div id="[nameLowerCase]">
                 <name />
