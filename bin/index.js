@@ -22,12 +22,12 @@ const getFinalName = (name, joiner) => {
     return name.replace(/ /g, '-').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(joiner);
 }
 
-const createComponent = (dir, name) => {
+const copyFiles = ({ dir, pages, name, type }) => {
     const camelCaseName = getFinalName(name, '');
 
-    ['[name].tsx', '[name].css', '[name].stories.tsx', '[name].test.tsx'].forEach((fileName) => {
-        fs.readFile(new URL(`./PBC/component/${fileName}`, import.meta.url), 'utf8', (err,data) => {
-            if (err) return console.log(err);
+    pages.forEach((fileName) => {
+        fs.readFile(new URL(`./PBC/${type}/${fileName}`, import.meta.url), 'utf8', (err,data) => {
+            if (err) return console.error(err);
 
             const fileExtension = fileName.split('[name].')[1];
             const result = data
@@ -37,11 +37,29 @@ const createComponent = (dir, name) => {
                 .replace(/\[nameLowerCase\]|nameLowerCase/g, name.replace(/ /g, '-').split('-').map(word => word.toLowerCase()).join(''));
 
             fs.writeFile(`${dir}/${camelCaseName}.${fileExtension}`, result, 'utf8', (err) => {
-                if (err) return console.log(err);
+                if (err) return console.error(err);
             });
 
             console.log(`${camelCaseName}.${fileExtension} successfully created`);
         });
+    });
+}
+
+const createComponent = (dir, name) => {
+    copyFiles({
+        dir,
+        name,
+        type: 'component',
+        pages: ['[name].tsx', '[name].css', '[name].stories.tsx', '[name].test.tsx'],
+    });
+}
+
+const createRoute = (dir, name) => {
+    copyFiles({
+        dir,
+        name,
+        type: 'page',
+        pages: ['[name].route.tsx', '[name].tsx']
     })
 }
 
@@ -56,4 +74,11 @@ inquirer.prompt(questions).then(({ name, type }) => {
     fs.mkdirSync(dir);
 
     if (type === 'component') createComponent(dir, name);
+
+    if (type === 'page') {
+        createRoute(dir, name);
+        const componentDir = `${dir}/components/`;
+        fs.mkdirSync(componentDir);
+        createComponent(componentDir, name);
+    }
 });
