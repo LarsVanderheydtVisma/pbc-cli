@@ -2,6 +2,9 @@
   "name": "pbc-cli",
   "version": "1.0.0",
   "type": "module",
+  "author": "Lars Vanderheydt",
+  "repository": "https://github.com/LarsVanderheydtVisma/pbc-cli",
+  "person": "Lars Vanderheydt <lars.vanderheydt@visma.com>",
   "bin": {
     "pbc": "./bin/index.js"
   },
