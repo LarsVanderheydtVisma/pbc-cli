@@ -39,10 +39,10 @@ const copyFiles = ({ dir, pages, name, type }) => {
             fs.writeFile(`${dir}/${camelCaseName}.${fileExtension}`, result, 'utf8', (err) => {
                 if (err) return console.error(err);
             });
-
-            console.log(`${camelCaseName}.${fileExtension} successfully created`);
         });
     });
+
+    console.log('Successfully created all files');
 }
 
 const createComponent = (dir, name) => {
@@ -63,7 +63,7 @@ const createRoute = (dir, name) => {
     })
 }
 
-inquirer.prompt(questions).then(({ name, type }) => {
+const execute = ({ name, type }) => {
     const camelCaseName = getFinalName(name, '');
     const dir = `./${camelCaseName}`;
 
@@ -81,4 +81,35 @@ inquirer.prompt(questions).then(({ name, type }) => {
         fs.mkdirSync(componentDir);
         createComponent(componentDir, name);
     }
-});
+}
+
+const getArgOption = (param) => {
+    // slice 2 because the first arg is usually the path to nodejs, and the second arg is the location of the script you're executing.
+    return process.argv.slice(2).find((option) => option.includes(`--${param}`))?.split(`--${param}=`)[1];
+}
+
+const getArgCommand = (param) => {
+    return process.argv.slice(2).find((option) => option === param);
+}
+
+const init = () => {
+    const type = getArgOption('type')
+    const name = getArgOption('name');
+
+    if (getArgCommand('start') || (!type && !name)) {
+        inquirer.prompt(questions).then((answers) => execute(answers));
+        return;
+    }
+
+    if (!type) {
+        throw new Error("type is required");
+    }
+
+    if (!name) {
+        throw new Error("name is required");
+    }
+
+    execute({ name, type });
+}
+
+init();
